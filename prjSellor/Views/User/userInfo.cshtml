@@ -1,0 +1,16 @@
+﻿@model prjSellor.Models.User
+
+@*partial view of few fields needed in few places*@
+
+<tr>
+    <td><i>First name:</i></td>
+    <td>@Html.TextBoxFor(m => m.firstName, new { @class = "form-control" }) @Html.ValidationMessageFor(x => x.firstName)</td>
+</tr>
+<tr>
+    <td><i>Last name:</i></td>
+    <td>@Html.TextBoxFor(m => m.lastName, new { @class = "form-control" }) @Html.ValidationMessageFor(x => x.lastName)</td>
+</tr>
+<tr>
+    <td><i>Phone:</i></td>
+    <td>@Html.TextBoxFor(m => m.phone, new { @class = "form-control" }) @Html.ValidationMessageFor(x => x.phone)</td>
+</tr>

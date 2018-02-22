@@ -1,0 +1,92 @@
+﻿@model prjSellor.Models.svm
+
+@{
+Layout = Session["layOut"].ToString();
+}
+
+<h2>My appointments</h2>
+
+
+@{
+    WebGrid grid = new WebGrid(source: Model.scheList, columnNames: new[]
+    { "endDate", "startDate" });
+}
+<br />
+
+@grid.GetHtml(
+    tableStyle: "grid",
+    headerStyle: "grid-header",
+    alternatingRowStyle: "grid-alternating-row",
+    selectedRowStyle: "grid-selected-row",
+    rowStyle: "grid-row-style",
+columns:grid.Columns(  
+grid.Column(columnName: "startDate", header: "date", format: item => item.startDate.ToString("dd/MM/yyyy")),
+grid.Column(columnName: "startDate", header: "start", format: item => item.startDate.ToString("HH:mm")),
+grid.Column(columnName: "endDate", header: "end", format: item => item.endDate.ToString("HH:mm"))))
+
+<style>
+    .grid {
+        width: 50%;
+        border: 0px;
+        border-collapse: collapse;
+    }
+
+        .grid a {
+            color: #000;
+        }
+
+    .grid-row-style td {
+        text-align: center;
+    }
+
+    .grid-header th {
+        padding-right: 20px;
+        padding-left: 20px;
+        text-align: center;
+    }
+
+    .grid-alternating-row td {
+        text-align: center;
+    }
+
+    .grid-header {
+        padding: 6px 5px;
+        text-align: center;
+        background-color: #e8eef4;
+        border-bottom: 2px solid #3966A2;
+        height: 40px;
+        border-top: 2px solid #D6E8FF;
+        border-left: 2px solid #D6E8FF;
+        border-right: 2px solid #D6E8FF;
+    }
+
+    .grid-footer {
+        padding: 6px 5px;
+        text-align: center;
+        background-color: #e8eef4;
+        border-top: 2px solid #3966A2;
+        height: 30px;
+        border-bottom: 2px solid #D6E8FF;
+        border-left: 2px solid #D6E8FF;
+        border-right: 2px solid #D6E8FF;
+    }
+
+    .grid-alternating-row {
+        height: 30px;
+        background-color: #f2f2f2;
+        border-bottom: 1px solid #d2d2d2;
+        border-left: 2px solid #D6E8FF;
+        border-right: 2px solid #D6E8FF;
+    }
+
+    .grid-row-style {
+        height: 30px;
+        border-bottom: 1px solid #d2d2d2;
+        border-left: 2px solid #D6E8FF;
+        border-right: 2px solid #D6E8FF;
+    }
+
+    .grid-selected-row {
+        font-weight: bold;
+    }
+</style>

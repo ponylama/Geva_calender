@@ -1,0 +1,66 @@
+﻿@model prjSellor.Models.searchUser
+
+@{
+    Layout = Session["layOut"].ToString();
+}
+
+<h2>Change user access</h2>
+<br />
+@if (Session["Status"] != null)
+{
+    @Session["Status"].ToString();
+}<br />
+
+<form action="SearchINDB" method="post">
+    Search by first name: @Html.TextBox("stringSearch") <input id="Submit1" type="submit" value="submit" />
+</form>
+@if (Model.users.Count > 0)
+{
+    <table cellspacing="0" cellpadding="0" border="1" style="width:70%">
+        <tr>
+            <td>
+                First name
+            </td>
+            <td>
+                Last name
+            </td>
+            <td>
+                Username
+            </td>
+            <td>
+                Type
+            <td>
+                Change type
+            </td>
+        </tr>
+        @for (int i = 0; i < Model.users.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Model.users[i].firstName
+                </td>
+                <td>
+                    @Model.users[i].lastName
+                </td>
+                <td>
+                    @Model.users[i].userName
+                </td>
+                <td>
+                    @Model.users[i].type
+                </td>
+                <td>
+                    @Html.ActionLink("Change type", "changeAccess", "Admin", new
+               {
+                   userName = @Model.users[i].userName,
+                   type = @Model.users[i].type
+               }, null)
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@if (Model.flag == 1 && Model.users.Count == 0)
+{
+    <h3>No users were found</h3>
+}

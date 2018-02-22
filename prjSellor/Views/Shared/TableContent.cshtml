@@ -1,0 +1,112 @@
+﻿@model prjSellor.Models.TimeTable
+@using prjSellor.Models
+@{
+    int flag = 0;
+    DateTime date = Convert.ToDateTime(Session["day"]);
+    DefaultSchedule Schedule = Model.getSchedule(date.DayOfWeek.ToString());
+    User[] userList = Model.getDayUsers(date.DayOfWeek.ToString());
+    date = date.AddHours(Schedule.startTime.Hour);
+    date = date.AddMinutes(Schedule.startTime.Minute);
+
+}
+
+@*timetable not user*@
+<table id="ReportTable" cellspacing="0" cellpadding="0" border="1" style="width:50%">
+    <tr>
+        <td width="18px">&nbsp;</td> @*for status*@
+        <td>From</td>
+        <td>Until</td>
+        <td>Subscribe</td>
+        @if (Session["type"] != null)
+        {
+            if (Session["type"].ToString() == "Admin")
+            {
+                <td>First name</td>
+                <td>Last name</td>
+                <td>Phone</td>
+                flag = 1;
+            }
+            else
+            {
+                flag = 3;   //user not subscribe for today
+                for (int i = 0; i < userList.Length; i++)
+                {
+                    if (userList[i] != null)
+                    {
+                        if (userList[i].userName == Session["userName"].ToString())
+                        {
+                            flag = 2;   //already subscribe for today
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    </tr>
+    @*@ViewBag.day*@
+
+
+    @for (int i = 0; i < userList.Length; i++)
+    {
+        <tr>
+            @if (userList[i] != null)
+            {
+                <td class="white">
+                    <img src="/images/red.png" border="0" alt="Busy">
+                </td>
+            }
+            else
+            {
+                <td class="white">
+                    <img src="/images/green.png" border="0" alt="Busy">
+                </td>
+            }
+            <td>
+                @Schedule.startTime.ToString("HH:mm")
+                @{Schedule.startTime = Schedule.startTime.AddMinutes(Schedule.timeSlace);}
+            </td>
+            <td>
+                @Schedule.startTime.ToString("HH:mm")
+            </td>
+            @if (userList[i] == null)
+            {
+                if (flag != 2)
+                {
+                    <td>
+                        @Html.ActionLink("Subscribe", "Subscribe", "Appointment", new { startDate = date.AddMinutes(Schedule.timeSlace * i), timeSlace = Schedule.timeSlace }, null)
+                    </td>
+                }
+            }
+            else
+            {
+                if ((flag == 2 && userList[i].userName == Session["userName"].ToString()) || flag == 1 && userList[i].userName != "")
+                {
+                    <td>
+                        @Html.ActionLink("Remove", "Remove", "Appointment", new { startDate = date.AddMinutes(Schedule.timeSlace * i) }, null)
+                    </td>
+                }
+            }
+            @if (flag == 1)
+            {
+                if (userList[i] != null || (userList[i] != null && userList[i].userName == ""))
+                {
+                    <td>@userList[i].firstName</td>
+                    <td>@userList[i].lastName</td>
+                    <td>@userList[i].phone</td>
+                    if (userList[i].userName == "") //add another td cause not remove button added
+                    {
+                        <td>@userList[i].phone</td>
+                    }
+                }
+            }
+        </tr>
+     }
+
+</table>
+
+<style>
+    td {
+    text-align: center;
+    vertical-align: middle;
+}
+</style>

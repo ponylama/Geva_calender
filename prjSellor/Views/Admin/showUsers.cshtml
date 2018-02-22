@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "showUsers";
+    Layout = "~/Views/Shared/layoutAdmin.cshtml";
+}
+
+<h2>Users avilable</h2>
+<html>
+<head>
+    <script src="~/Scripts/jquery-1.11.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+<body>
+    <div>
+        <table style="width:100%" id="usersTable">
+            <tr>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Phone</th>
+                <th>User type</th>
+            </tr>
+
+        </table>
+
+        <script language="javascript">
+
+            $.get("getUsersByJSON", null, BindData);
+
+            function BindData(objUsers) {
+                var tbl = $("#usersTable");
+                for (k = 0; k < objUsers.length; k++) {
+                    var newRow = "<tr>" +
+                        "<td>" + objUsers[k].userName + "</td>" +
+                        "<td>" + objUsers[k].firstName + "</td>" +
+                        "<td>" + objUsers[k].lastName + "</td>" +
+                        "<td>" + objUsers[k].phone + "</td>" +
+                        "<td>" + objUsers[k].type + "</td></tr>";
+                    tbl.append(newRow);
+                }
+            }
+
+        </script>
+    </div>
+</body>
+</html>
+

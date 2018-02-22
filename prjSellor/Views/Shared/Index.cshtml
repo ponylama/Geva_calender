@@ -1,0 +1,64 @@
+﻿@model prjSellor.Models.TimeTable
+
+
+@{
+    if (Session["layOut"] != null)
+    {
+        Layout = Session["layOut"].ToString();
+    }
+    else
+    {
+        Layout = "~/Views/Shared/layoutNotLogin.cshtml";
+    }
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+
+<body>
+    <script>document.body.style.backgroundImage = "url('https://media.istockphoto.com/photos/stack-of-colorful-hardback-books-open-book-on-blue-background-picture-id505944018?s=2048x2048')";</script>
+    @if (Session["Status"] != null)
+    {
+        @Session["Status"].ToString();
+    }
+    <br />
+    <ul class="nav nav-tabs">
+        <li class="active">
+            @{
+                for (int i = 0; i < 7; i++)
+                {
+                <li>
+                    <a href="#tab_@i" data-toggle="tab">@DateTime.Today.AddDays(i).DayOfWeek.ToString()<br />@DateTime.Today.AddDays(i).Date.ToString("dd-MM-yyyy")</a>
+                </li>
+                }
+            }
+        </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab_0">
+            @{Session["day"] = @DateTime.Today;}
+            <p>@Html.Partial("TableContent", Model)</p>
+        </div>
+
+        @for (int i = 1; i < 7; i++)
+        {
+            <div class="tab-pane fade" id="tab_@i">
+                @{Session["day"] = @DateTime.Today.AddDays(i);}
+                <p>@Html.Partial("TableContent", Model)</p>
+            </div>
+        }
+
+
+    </div>
+    </body>
+
+
+</html>
+
+<script>
+    var tabsOpts = {
+        selected: tab_1
+    };
+    $("#tab").tabs(tabsOpts);
+</script>

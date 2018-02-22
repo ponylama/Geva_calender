@@ -1,0 +1,43 @@
+﻿@model prjSellor.Models.User
+
+@{
+Layout = "~/Views/Shared/layoutNotLogin.cshtml";
+}
+
+<h2>Register</h2>
+
+<head>
+    <script src="~/Scripts/jquery-1.11.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+
+<body>
+    <div>
+
+        @using (Html.BeginForm("registerCheck", "User", FormMethod.Post))
+        {
+            <table>
+                @Html.Partial("userInfo", Model)
+                <tr>
+                    <td><i>Username: </i></td>
+                    <td>@Html.TextBoxFor(m => m.userName, new { @class = "form-control" }) @Html.ValidationMessageFor(x => x.userName) @ViewBag.usernameError</td>
+                </tr>
+                <tr>
+                    <td><i>Password:</i></td>
+                    <td>@Html.PasswordFor(m => m.password, new { @class = "form-control", placeholder = "Password" }) @Html.ValidationMessageFor(x => x.password) @ViewBag.passwordError</td>
+                </tr>
+                <tr>
+                    <td>Password confirmation:</td>
+                    <td>
+                        @Html.Password("passwordConfirm", "",  new { @class = "form-control", placeholder = "Password" })
+                    </td>
+                </tr>
+                <tr>
+                    <td><input id="submit" type="submit" value="submit" /></td>
+                </tr>
+            </table>
+        }
+
+    </div>
+</body>

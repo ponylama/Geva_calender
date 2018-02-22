@@ -1,0 +1,29 @@
+﻿@model prjSellor.Models.User
+
+@{
+Layout = Session["layOut"].ToString();
+}
+
+<head>
+    <script src="~/Scripts/jquery-1.11.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+
+<h2>My info</h2>
+<div>
+
+    @using (Html.BeginForm("editCheck", "User", FormMethod.Post))
+    {
+        <table>
+            @Html.Partial("userInfo", Model)
+            <tr>
+                <td><br /><input id="Submit1" type="submit" value="Save changes" /> </td>
+            </tr>
+        </table>
+    }
+    <form method="post" action="user/changePassword">
+        <input id="Submit1" type="submit" value="Edit password" />
+    </form>
+</div>
+

@@ -1,0 +1,42 @@
+﻿@{
+Layout = "~/Views/Shared/layoutNotLogin.cshtml";
+}
+
+
+<h2>Login</h2>
+
+
+<!DOCTYPE html>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<html>
+
+
+<head>
+    <title>Login</title>
+</head>
+
+
+<body>
+    <div>
+        <br />
+        <table>
+            @Session["Status"].ToString()
+            @using (Html.BeginForm("SubmitLogin", "Home", FormMethod.Post))
+                
+            {
+                <tr>
+                    <td>@Html.TextBox("userName", "" ,new { @class = "form-control", placeholder = "Username" })</td>
+                </tr>
+                <tr>
+                    <td>@Html.Password("password", "",new { @class = "form-control", placeholder = "Password", @type = "password" })</td>
+                </tr>
+                <tr>
+                    <td><br /><input id="Submit" type="submit" name="" value="Login" /></td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

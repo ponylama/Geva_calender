@@ -1,0 +1,29 @@
+﻿@{
+    if (Session["layOut"] != null)
+    {
+        Layout = Session["layOut"].ToString();
+    }
+    else
+    {
+        Layout = "~/Views/Shared/layoutNotLogin.cshtml";
+    }
+}
+<h1>ABOUT US</h1>
+
+<table>
+    <tr>
+        <td>
+            <h3>
+                <img src="~/Images/about1.jpg" alt="GOT" width="1000"><br />
+                Yoel Geva is the best school today for<br />
+                studing for all kinds of exams.<br />
+                We hire the best teachers with<br />
+                the longest experience <br />
+                The classes cintains the best equipment to give<br />
+                the student the best space for study<br /> <br />
+                <iframe width="854" height="480" src="https://www.youtube.com/embed/xqt-tNG39po?ecver=1" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+            </h3>
+        </td>
+    </tr>
+</table>
+
